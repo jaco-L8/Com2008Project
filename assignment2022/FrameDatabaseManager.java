@@ -1,4 +1,4 @@
-package assignment2022;
+package com2008_project.assignment2022;
 
 import java.awt.EventQueue;
 

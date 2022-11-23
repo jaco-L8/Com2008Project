@@ -1,4 +1,4 @@
-package assignment2022;
+package com2008_project.assignment2022;
 
 import java.awt.EventQueue;
 
@@ -12,13 +12,15 @@ import javax.swing.SwingConstants;
 import java.awt.Font;
 import java.awt.Color;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.event.ActionEvent;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 
-public class FrameBuildBike extends JFrame {
+public class FrameBuildBike extends JFrame implements ItemListener {
 
 	private JPanel contentPane;
 	private JTextField txtfield_BikeName;
@@ -28,6 +30,8 @@ public class FrameBuildBike extends JFrame {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
+		
+		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -39,11 +43,30 @@ public class FrameBuildBike extends JFrame {
 			}
 		});
 	}
-
+	
+	
+	
+	//Frame name
+			SQL FrameName = new SQL();
+			String[] Frames = FrameName.Frame().toArray(new String[0]);
+			JComboBox FrameBox;
+			
+			//Handle name
+			SQL HandleBarName = new SQL();
+			String[] Handles = HandleBarName.Handle().toArray(new String[0]);
+			JComboBox HandleBox;
+			
+			//Wheels name
+			SQL WheelsName = new SQL();
+			String[] Wheels = WheelsName.Wheel().toArray(new String[0]);
+			JComboBox WheelsBox;
+			
+	
 	/**
 	 * Create the frame.
 	 */
 	public FrameBuildBike() {
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1280, 720);
 		contentPane = new JPanel();
@@ -83,29 +106,42 @@ public class FrameBuildBike extends JFrame {
 		bodyPanel.add(bikePartsPanel, BorderLayout.CENTER);
 		bikePartsPanel.setLayout(new GridLayout(0, 1, 0, 20));
 		
+		//frames
+		
 		JLabel lblNewLabel_1 = new JLabel("Frame:");
 		lblNewLabel_1.setVerticalAlignment(SwingConstants.BOTTOM);
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 30));
 		bikePartsPanel.add(lblNewLabel_1);
 		
-		JComboBox comboBox = new JComboBox();
-		bikePartsPanel.add(comboBox);
+		FrameBox = new JComboBox(Frames);
+		FrameBox.addItemListener(this);
+		bikePartsPanel.add(FrameBox);
+		
+		//Handle Bar
 		
 		lblNewLabel_2 = new JLabel("Handle Bars:");
 		lblNewLabel_2.setVerticalAlignment(SwingConstants.BOTTOM);
 		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 30));
 		bikePartsPanel.add(lblNewLabel_2);
 		
-		JComboBox comboBox_1 = new JComboBox();
-		bikePartsPanel.add(comboBox_1);
+		String[] choices = { "CHOICE 1","CHOICE 2", "CHOICE 3","CHOICE 4","CHOICE 5","CHOICE 6"};
+		
+		HandleBox = new JComboBox(Handles);
+		HandleBox.addItemListener(this);
+		bikePartsPanel.add(HandleBox);
+		
+		//wheels
 		
 		JLabel lblNewLabel_3 = new JLabel("Wheels:");
 		lblNewLabel_3.setVerticalAlignment(SwingConstants.BOTTOM);
 		lblNewLabel_3.setFont(new Font("Tahoma", Font.PLAIN, 30));
 		bikePartsPanel.add(lblNewLabel_3);
 		
-		JComboBox comboBox_2 = new JComboBox();
-		bikePartsPanel.add(comboBox_2);
+		WheelsBox = new JComboBox(Wheels);
+		WheelsBox.addItemListener(this);
+		bikePartsPanel.add(WheelsBox);
+		
+		//left panel
 		
 		JPanel bikeStatPanel = new JPanel();
 		bikeStatPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
@@ -160,5 +196,21 @@ public class FrameBuildBike extends JFrame {
 		btn_Finalise.setFont(new Font("Tahoma", Font.PLAIN, 30));
 		bikeStatPanel.add(btn_Finalise);
 	}
+	
+	//Item Event Handler With temporary output
+	
+	public void itemStateChanged(ItemEvent e) {
+		
+		String SelectFrame = (String) FrameBox.getSelectedItem();
+		System.out.println("Frame: " + SelectFrame);
+		
+		String SelectHandle = (String) HandleBox.getSelectedItem();
+		System.out.println("Handle: " + SelectHandle);
+		
+		String SelectWheels = (String) WheelsBox.getSelectedItem();
+		System.out.println("Wheels: " + SelectWheels);
+		
+	}
 
 }
+

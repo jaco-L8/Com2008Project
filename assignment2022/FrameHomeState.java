@@ -1,4 +1,4 @@
-package assignment2022;
+package com2008_project.assignment2022;
 
 import java.awt.EventQueue;
 
@@ -28,14 +28,11 @@ import javax.swing.border.MatteBorder;
 import javax.swing.border.CompoundBorder;
 import javax.swing.UIManager;
 import javax.swing.ImageIcon;
-import net.miginfocom.swing.MigLayout;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import java.awt.CardLayout;
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.ColumnSpec;
-import com.jgoodies.forms.layout.RowSpec;
-import com.jgoodies.forms.layout.FormSpecs;
+
+
 
 public class FrameHomeState extends JFrame {
 
