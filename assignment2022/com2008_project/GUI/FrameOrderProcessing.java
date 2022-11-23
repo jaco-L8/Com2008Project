@@ -1,8 +1,6 @@
-<<<<<<< HEAD:assignment2022/com2008_project/GUI/FrameOrderProcessing.java
+
 package com2008_project.GUI;
-=======
-package com2008_project.assignment2022;
->>>>>>> 8242a7f1cb51a0b84ce1746e4e7e2aa3c1a35e52:assignment2022/FrameOrderProcessing.java
+
 
 import com2008_project.Database.*;
 import com2008_project.BusinessLogic.*;

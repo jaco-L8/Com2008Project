@@ -1,12 +1,9 @@
-<<<<<<< HEAD:assignment2022/com2008_project/GUI/FrameBuildBike.java
+
 package com2008_project.GUI;
 
 import com2008_project.Database.*;
 
 import com2008_project.BusinessLogic.*;
-=======
-package com2008_project.assignment2022;
->>>>>>> 8242a7f1cb51a0b84ce1746e4e7e2aa3c1a35e52:assignment2022/FrameBuildBike.java
 
 import java.awt.EventQueue;
 
@@ -210,7 +207,6 @@ public class FrameBuildBike extends JFrame implements ItemListener {
 	public void itemStateChanged(ItemEvent e) {
 		
 		String SelectFrame = (String) FrameBox.getSelectedItem();
-<<<<<<< HEAD:assignment2022/com2008_project/GUI/FrameBuildBike.java
 		//temp
 		System.out.println("Frame: " + SelectFrame);
 		
@@ -220,14 +216,6 @@ public class FrameBuildBike extends JFrame implements ItemListener {
 		
 		String SelectWheels = (String) WheelsBox.getSelectedItem();
 		//temp
-=======
-		System.out.println("Frame: " + SelectFrame);
-		
-		String SelectHandle = (String) HandleBox.getSelectedItem();
-		System.out.println("Handle: " + SelectHandle);
-		
-		String SelectWheels = (String) WheelsBox.getSelectedItem();
->>>>>>> 8242a7f1cb51a0b84ce1746e4e7e2aa3c1a35e52:assignment2022/FrameBuildBike.java
 		System.out.println("Wheels: " + SelectWheels);
 		
 	}

@@ -1,11 +1,9 @@
-<<<<<<< HEAD:assignment2022/com2008_project/GUI/FrameYourOrders.java
+
 package com2008_project.GUI;
 
 import com2008_project.Database.*;
 import com2008_project.BusinessLogic.*;
-=======
-package com2008_project.assignment2022;
->>>>>>> 8242a7f1cb51a0b84ce1746e4e7e2aa3c1a35e52:assignment2022/FrameYourOrders.java
+
 
 import java.awt.EventQueue;
 
