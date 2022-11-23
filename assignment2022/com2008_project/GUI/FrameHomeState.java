@@ -1,5 +1,11 @@
-package assignment2022;
+<<<<<<< HEAD:assignment2022/com2008_project/GUI/FrameHomeState.java
+package com2008_project.GUI;
+=======
+package com2008_project.assignment2022;
+>>>>>>> 8242a7f1cb51a0b84ce1746e4e7e2aa3c1a35e52:assignment2022/FrameHomeState.java
 
+import com2008_project.Database.*;
+import com2008_project.BusinessLogic.*;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -28,14 +34,11 @@ import javax.swing.border.MatteBorder;
 import javax.swing.border.CompoundBorder;
 import javax.swing.UIManager;
 import javax.swing.ImageIcon;
-import net.miginfocom.swing.MigLayout;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import java.awt.CardLayout;
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.ColumnSpec;
-import com.jgoodies.forms.layout.RowSpec;
-import com.jgoodies.forms.layout.FormSpecs;
+
+
 
 public class FrameHomeState extends JFrame {
 
