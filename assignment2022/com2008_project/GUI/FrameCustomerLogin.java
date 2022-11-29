@@ -1,9 +1,5 @@
+package com2008.assignment2022;
 
-package com2008_project.GUI;
-
-
-import com2008_project.Database.*;
-import com2008_project.BusinessLogic.*;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -24,9 +20,12 @@ import javax.swing.BoxLayout;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import java.awt.Window;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.CardLayout;
 
-public class FrameCustomerLogin extends JFrame {
+public class FrameCustomerLogin extends JFrame implements ActionListener {
 
 	private JPanel contentPane;
 	private JTextField txtField_OrderID;
@@ -50,7 +49,9 @@ public class FrameCustomerLogin extends JFrame {
 			}
 		});
 	}
-
+	//initialize
+		JButton btn_Return ;
+		
 	/**
 	 * Create the frame.
 	 */
@@ -77,6 +78,14 @@ public class FrameCustomerLogin extends JFrame {
 		JButton btn_Return = new JButton("Return");
 		btn_Return.setFont(new Font("Tahoma", Font.PLAIN, 30));
 		headerPanel.add(btn_Return, BorderLayout.EAST);
+		btn_Return.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				FrameHomeState mf = new FrameHomeState();
+				mf.setVisible(true);
+				Window frame = null;
+				frame.dispose();
+			}
+		});
 		
 		JPanel bodyPanel = new JPanel();
 		bodyPanel.setBackground(new Color(226, 226, 226));
@@ -176,6 +185,12 @@ public class FrameCustomerLogin extends JFrame {
 		JButton btn_ViewOrder = new JButton("View Order");
 		btn_ViewOrder.setFont(new Font("Tahoma", Font.PLAIN, 30));
 		viewOrderLoginPanel.add(btn_ViewOrder);
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

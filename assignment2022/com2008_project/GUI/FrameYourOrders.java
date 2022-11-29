@@ -1,9 +1,4 @@
-
-package com2008_project.GUI;
-
-import com2008_project.Database.*;
-import com2008_project.BusinessLogic.*;
-
+package com2008.assignment2022;
 
 import java.awt.EventQueue;
 
@@ -17,6 +12,7 @@ import java.awt.Font;
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
 import java.awt.SystemColor;
+import java.awt.Window;
 import java.awt.GridLayout;
 import javax.swing.JTextField;
 import javax.swing.JTable;
@@ -43,6 +39,9 @@ public class FrameYourOrders extends JFrame {
 		});
 	}
 
+	//initialize
+		JButton btn_Return ;
+	
 	/**
 	 * Create the frame.
 	 */
@@ -69,6 +68,11 @@ public class FrameYourOrders extends JFrame {
 		JButton btn_Return = new JButton("Return");
 		btn_Return.setFont(new Font("Tahoma", Font.PLAIN, 30));
 		headerPanel.add(btn_Return, BorderLayout.EAST);
+		FrameHomeState mf = new FrameHomeState();
+		mf.setVisible(true);
+		Window frame = null;
+		frame.dispose();
+	
 		
 		JPanel bodyPanel = new JPanel();
 		bodyPanel.setBorder(new EmptyBorder(10, 20, 10, 20));
