@@ -1,8 +1,5 @@
-package com2008_project.GUI;
+package com2008.assignment2022;
 
-
-import com2008_project.Database.*;
-import com2008_project.BusinessLogic.*;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;

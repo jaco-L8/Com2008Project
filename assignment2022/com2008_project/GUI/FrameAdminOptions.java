@@ -1,9 +1,5 @@
+package com2008.assignment2022;
 
-package com2008_project.GUI;
-
-
-import com2008_project.Database.*;
-import com2008_project.BusinessLogic.*;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -16,12 +12,15 @@ import java.awt.Font;
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
 import java.awt.GridLayout;
+import java.awt.Window;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.FlowLayout;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.JRadioButton;
 
-public class FrameAdminOptions extends JFrame {
+public class FrameAdminOptions extends JFrame implements ActionListener {
 
 	private JPanel contentPane;
 	private JTextField txtField_SerialNumber;
@@ -48,7 +47,11 @@ public class FrameAdminOptions extends JFrame {
 			}
 		});
 	}
-
+//initialize
+	JButton btn_SignOut;
+	JButton btn_ManageDatabases;
+	JButton btn_Return;
+	
 	/**
 	 * Create the frame.
 	 */
@@ -76,6 +79,14 @@ public class FrameAdminOptions extends JFrame {
 		JButton btn_SignOut = new JButton("Sign Out");
 		btn_SignOut.setFont(new Font("Tahoma", Font.PLAIN, 30));
 		HeaderPanel.add(btn_SignOut, BorderLayout.EAST);
+		btn_SignOut.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				FrameAdminLogin mf = new FrameAdminLogin();
+				mf.setVisible(true);
+				Window frame = null;
+				frame.dispose();
+			}
+		});
 		
 		JPanel BodyPanel = new JPanel();
 		BodyPanel.setBorder(new EmptyBorder(10, 20, 0, 20));
@@ -96,7 +107,15 @@ public class FrameAdminOptions extends JFrame {
 		JButton btn_ManageDatabases = new JButton("Manage Databases");
 		btn_ManageDatabases.setFont(new Font("Tahoma", Font.PLAIN, 30));
 		ButtonPanel.add(btn_ManageDatabases);
-		
+		btn_ManageDatabases.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				FrameDatabaseManager dm = new FrameDatabaseManager();
+				dm.setVisible(true);
+				Window frame = null;
+				frame.dispose();
+			}
+		});
+	
 		JPanel addProductPanel = new JPanel();
 		addProductPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		BodyPanel.add(addProductPanel, BorderLayout.CENTER);
@@ -206,6 +225,12 @@ public class FrameAdminOptions extends JFrame {
 		txtField_Quantity.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		txtField_Quantity.setColumns(10);
 		rightPanel.add(txtField_Quantity);
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
