@@ -1,4 +1,9 @@
-package assignment2022;
+
+package com2008_project.GUI;
+
+import com2008_project.Database.*;
+import com2008_project.BusinessLogic.*;
+
 
 import java.awt.EventQueue;
 
@@ -11,14 +16,16 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JTable;
+import java.awt.SystemColor;
 import java.awt.GridLayout;
+import javax.swing.JTextField;
+import javax.swing.JTable;
+import java.awt.FlowLayout;
 
-public class FrameDatabaseManager extends JFrame {
+public class FrameYourOrders extends JFrame {
 
 	private JPanel contentPane;
-	private JTable table;
+	private JTable table_Orders;
 
 	/**
 	 * Launch the application.
@@ -27,7 +34,7 @@ public class FrameDatabaseManager extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					FrameDatabaseManager frame = new FrameDatabaseManager();
+					FrameYourOrders frame = new FrameYourOrders();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -39,7 +46,7 @@ public class FrameDatabaseManager extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public FrameDatabaseManager() {
+	public FrameYourOrders() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1280, 720);
 		contentPane = new JPanel();
@@ -54,7 +61,7 @@ public class FrameDatabaseManager extends JFrame {
 		contentPane.add(headerPanel, BorderLayout.NORTH);
 		headerPanel.setLayout(new BorderLayout(0, 0));
 		
-		JLabel ST_PageName = new JLabel("Database Manager");
+		JLabel ST_PageName = new JLabel("Your Orders");
 		ST_PageName.setHorizontalAlignment(SwingConstants.CENTER);
 		ST_PageName.setFont(new Font("Tahoma", Font.PLAIN, 60));
 		headerPanel.add(ST_PageName, BorderLayout.CENTER);
@@ -69,25 +76,18 @@ public class FrameDatabaseManager extends JFrame {
 		contentPane.add(bodyPanel, BorderLayout.CENTER);
 		bodyPanel.setLayout(new BorderLayout(0, 0));
 		
-		JPanel databasePanel = new JPanel();
-		databasePanel.setBorder(new EmptyBorder(10, 20, 10, 20));
-		bodyPanel.add(databasePanel, BorderLayout.CENTER);
-		databasePanel.setLayout(new BorderLayout(0, 0));
+		JPanel loginPanel = new JPanel();
+		loginPanel.setBorder(new EmptyBorder(10, 20, 10, 20));
+		loginPanel.setBackground(SystemColor.menu);
+		bodyPanel.add(loginPanel, BorderLayout.CENTER);
+		loginPanel.setLayout(new BorderLayout(0, 0));
 		
-		JPanel selectPanel = new JPanel();
-		selectPanel.setBorder(new EmptyBorder(0, 100, 10, 100));
-		databasePanel.add(selectPanel, BorderLayout.NORTH);
-		selectPanel.setLayout(new GridLayout(0, 1, 0, 0));
+		table_Orders = new JTable();
+		loginPanel.add(table_Orders, BorderLayout.CENTER);
 		
-		JLabel ST_SelectDatabase = new JLabel("Select Database To View/Edit:");
-		ST_SelectDatabase.setFont(new Font("Tahoma", Font.PLAIN, 25));
-		selectPanel.add(ST_SelectDatabase);
-		
-		JComboBox cb_SelectDatabase = new JComboBox();
-		selectPanel.add(cb_SelectDatabase);
-		
-		table = new JTable();
-		databasePanel.add(table, BorderLayout.CENTER);
+		JLabel ST_YourOrders = new JLabel("Your Orders Table:");
+		ST_YourOrders.setFont(new Font("Tahoma", Font.PLAIN, 30));
+		loginPanel.add(ST_YourOrders, BorderLayout.NORTH);
 	}
 
 }
