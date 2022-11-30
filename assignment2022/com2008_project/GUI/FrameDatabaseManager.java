@@ -2,7 +2,6 @@ package com2008_project.GUI;
 
 
 import com2008_project.Database.*;
-import com2008_project.BusinessLogic.*;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -17,8 +16,11 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JTable;
 import java.awt.GridLayout;
+import java.awt.Window;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class FrameDatabaseManager extends JFrame {
+public class FrameDatabaseManager extends JFrame implements ActionListener{
 
 	private JPanel contentPane;
 	private JTable table;
@@ -38,6 +40,10 @@ public class FrameDatabaseManager extends JFrame {
 			}
 		});
 	}
+
+	//initialize
+	JButton btn_Return ;
+	private Window frame;
 
 	/**
 	 * Create the frame.
@@ -65,6 +71,13 @@ public class FrameDatabaseManager extends JFrame {
 		JButton btn_Return = new JButton("Return");
 		btn_Return.setFont(new Font("Tahoma", Font.PLAIN, 30));
 		headerPanel.add(btn_Return, BorderLayout.EAST);
+		public void actionPerformed(ActionEvent e) {
+			FrameAdminOptions ao = new FrameAdminOptions();
+			ao.setVisible(true);
+			 frame = null;
+			frame.dispose();
+		}
+	});
 		
 		JPanel bodyPanel = new JPanel();
 		bodyPanel.setBorder(new EmptyBorder(10, 20, 10, 20));
