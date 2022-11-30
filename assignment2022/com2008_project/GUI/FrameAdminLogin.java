@@ -1,5 +1,9 @@
-package com2008.assignment2022;
 
+package com2008_project.GUI;
+
+
+import com2008_project.Database.*;
+import com2008_project.BusinessLogic.*;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -13,17 +17,9 @@ import javax.swing.SwingConstants;
 import javax.swing.JButton;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
-import java.awt.Window;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-
 import javax.swing.JTextField;
 
-public class FrameAdminLogin extends JFrame implements ActionListener{
+public class FrameAdminLogin extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField txtField_Username;
@@ -44,10 +40,7 @@ public class FrameAdminLogin extends JFrame implements ActionListener{
 			}
 		});
 	}
-//initialize
-	JButton btn_login;
-	
-	
+
 	/**
 	 * Create the frame.
 	 */
@@ -74,14 +67,6 @@ public class FrameAdminLogin extends JFrame implements ActionListener{
 		JButton btn_Return = new JButton("Return");
 		btn_Return.setFont(new Font("Tahoma", Font.PLAIN, 30));
 		headerPanel.add(btn_Return, BorderLayout.EAST);
-		btn_Return.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				FrameHomeState mf = new FrameHomeState();
-				mf.setVisible(true);
-				Window frame = null;
-				frame.dispose();
-			}
-		});
 		
 		JPanel bodyPanel = new JPanel();
 		bodyPanel.setBackground(new Color(226, 226, 226));
@@ -122,52 +107,4 @@ public class FrameAdminLogin extends JFrame implements ActionListener{
 		loginPanel.add(btn_Login);
 	}
 
-
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-	
-	/*
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		
-        String Username = txtField_Username.getText();
-        String Password = txtField_Password.getText();
-        try {
-            Connection connection = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/swing_demo",
-                "root", "root");
-
-            PreparedStatement st = (PreparedStatement) connection
-                .prepareStatement("Select name, password from student where name=? and password=?");
-
-            st.setString(1, userName);
-            st.setString(2, password);
-            ResultSet rs = st.executeQuery();
-            if (rs.next()) {
-                dispose();
-                UserHome ah = new UserHome(userName);
-                ah.setTitle("Welcome");
-                ah.setVisible(true);
-                JOptionPane.showMessageDialog(btnNewButton, "You have successfully logged in");
-            } else {
-                JOptionPane.showMessageDialog(btnNewButton, "Wrong Username & Password");
-            }
-        } catch (SQLException sqlException) {
-            sqlException.printStackTrace();
-        }
-    }
-});
-
-contentPane.add(btnNewButton);
-
-label = new JLabel("");
-label.setBounds(0, 0, 1008, 562);
-contentPane.add(label);
 }
-*/
-}
-
-

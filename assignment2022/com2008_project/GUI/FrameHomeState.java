@@ -1,8 +1,9 @@
-package com2008.assignment2022;
+package com2008_project.GUI;
 
+
+import com2008_project.Database.*;
+import com2008_project.BusinessLogic.*;
 import java.awt.EventQueue;
-import java.awt.event.ActionEvent;
-import java.awt.event.*;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -17,8 +18,6 @@ import javax.swing.SpringLayout;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
-import java.awt.Window;
-
 import javax.swing.BoxLayout;
 import java.awt.FlowLayout;
 import java.awt.Color;
@@ -35,11 +34,10 @@ import javax.swing.ImageIcon;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import java.awt.CardLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 
-public class FrameHomeState extends JFrame implements ActionListener{
+
+public class FrameHomeState extends JFrame {
 
 	private JPanel contentPane;
 
@@ -58,13 +56,7 @@ public class FrameHomeState extends JFrame implements ActionListener{
 			}
 		});
 	}
-	
-	//initialize
-	JButton btn_BuildBike;
-	JButton ViewOrders;
 
-	
-	
 	/**
 	 * Create the frame.
 	 */
@@ -93,14 +85,6 @@ public class FrameHomeState extends JFrame implements ActionListener{
 		JButton btn_SignIn = new JButton("Sign In");
 		btn_SignIn.setFont(new Font("Tahoma", Font.PLAIN, 30));
 		HeaderPanel.add(btn_SignIn, BorderLayout.EAST);
-		btn_SignIn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				FrameCustomerLogin cl = new FrameCustomerLogin();
-				cl.setVisible(true);
-				Window frame = null;
-				frame.dispose();
-			}
-		});
 		
 		JPanel BodyPanel = new JPanel();
 		BodyPanel.setBorder(new EmptyBorder(10, 20, 0, 20));
@@ -114,32 +98,13 @@ public class FrameHomeState extends JFrame implements ActionListener{
 		BodyPanel.add(ButtonPanel, BorderLayout.SOUTH);
 		ButtonPanel.setLayout(new GridLayout(0, 2, 50, 0));
 		
-	
-		btn_BuildBike = new JButton("Build Your Bike");
-		btn_BuildBike.addActionListener(new ActionListener() {
-			@SuppressWarnings("null")
-			public void actionPerformed(ActionEvent e) {
-				FrameBuildBike bb = new FrameBuildBike();
-				bb.setVisible(true);
-				Window frame = null;
-				frame.dispose();
-			}
-		});
+		JButton btn_BuildBike = new JButton("Build Your Bike");
 		btn_BuildBike.setFont(new Font("Tahoma", Font.PLAIN, 30));
 		ButtonPanel.add(btn_BuildBike);
 		
 		JButton btn_ViewOrders = new JButton("View Your Orders");
 		btn_ViewOrders.setFont(new Font("Tahoma", Font.PLAIN, 30));
 		ButtonPanel.add(btn_ViewOrders);
-		btn_ViewOrders.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				FrameCustomerLogin yo = new FrameCustomerLogin();
-				yo.setVisible(true);
-				Window frame = null;
-				frame.dispose();
-			}
-		});
-		
 		
 		JPanel ContentPanel = new JPanel();
 		ContentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -170,33 +135,4 @@ public class FrameHomeState extends JFrame implements ActionListener{
 		ContentPanel.add(ST_Tip);
 	}
 
-
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-/*
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		btn_BuildBike.addActionListener(new ActionListener() {
-		    
-			public void actionPerformed(ActionEvent arg0) {
-		        FrameBuildBike second = new FrameBuildBike();   
-		        setVisible(false); // Hide current frame
-		        FrameBuildBike.setVisible(true);
-		    }
-	*/
-
-/*
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-*/
-	
 }
-
