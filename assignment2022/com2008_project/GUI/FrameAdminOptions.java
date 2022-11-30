@@ -5,10 +5,13 @@ package com2008_project.GUI;
 import com2008_project.Database.*;
 import com2008_project.BusinessLogic.*;
 import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
 import java.awt.Color;
 import java.awt.BorderLayout;
 import javax.swing.JLabel;
@@ -16,12 +19,13 @@ import java.awt.Font;
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
 import java.awt.GridLayout;
+import java.awt.Window;
 import java.awt.FlowLayout;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.JRadioButton;
 
-public class FrameAdminOptions extends JFrame {
+public class FrameAdminOptions extends JFrame implements ActionListener {
 
 	private JPanel contentPane;
 	private JTextField txtField_SerialNumber;
@@ -49,6 +53,11 @@ public class FrameAdminOptions extends JFrame {
 		});
 	}
 
+//initialize
+
+	JButton btn_SignOut;
+	JButton btn_ManageDatabases;
+	JButton btn_Return;
 	/**
 	 * Create the frame.
 	 */
@@ -76,6 +85,17 @@ public class FrameAdminOptions extends JFrame {
 		JButton btn_SignOut = new JButton("Sign Out");
 		btn_SignOut.setFont(new Font("Tahoma", Font.PLAIN, 30));
 		HeaderPanel.add(btn_SignOut, BorderLayout.EAST);
+		btn_SignOut.addActionListener(new ActionListener() {
+
+			private Window frame;
+
+			public void actionPerformed(ActionEvent e) {
+				FrameAdminLogin mf = new FrameAdminLogin();
+				mf.setVisible(true);
+				frame = null;
+	        	frame.dispose();
+			}
+		});
 		
 		JPanel BodyPanel = new JPanel();
 		BodyPanel.setBorder(new EmptyBorder(10, 20, 0, 20));
@@ -96,6 +116,7 @@ public class FrameAdminOptions extends JFrame {
 		JButton btn_ManageDatabases = new JButton("Manage Databases");
 		btn_ManageDatabases.setFont(new Font("Tahoma", Font.PLAIN, 30));
 		ButtonPanel.add(btn_ManageDatabases);
+		
 		
 		JPanel addProductPanel = new JPanel();
 		addProductPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -207,5 +228,10 @@ public class FrameAdminOptions extends JFrame {
 		txtField_Quantity.setColumns(10);
 		rightPanel.add(txtField_Quantity);
 	}
-
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	
 }

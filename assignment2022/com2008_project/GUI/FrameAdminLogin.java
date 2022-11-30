@@ -17,9 +17,13 @@ import javax.swing.SwingConstants;
 import javax.swing.JButton;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
-import javax.swing.JTextField;
+import java.awt.Window;
 
-public class FrameAdminLogin extends JFrame {
+import javax.swing.JTextField;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class FrameAdminLogin extends JFrame implements ActionListener{
 
 	private JPanel contentPane;
 	private JTextField txtField_Username;
@@ -40,6 +44,9 @@ public class FrameAdminLogin extends JFrame {
 			}
 		});
 	}
+
+	//initialize
+	JButton btn_login;
 
 	/**
 	 * Create the frame.
@@ -67,6 +74,16 @@ public class FrameAdminLogin extends JFrame {
 		JButton btn_Return = new JButton("Return");
 		btn_Return.setFont(new Font("Tahoma", Font.PLAIN, 30));
 		headerPanel.add(btn_Return, BorderLayout.EAST);
+		btn_Return.addActionListener(new ActionListener() {
+			private Window frame;
+
+			public void actionPerformed(ActionEvent e) {
+				FrameHomeState mf = new FrameHomeState();
+				mf.setVisible(true);
+			    frame = null;
+			    frame.dispose();
+			}
+		});
 		
 		JPanel bodyPanel = new JPanel();
 		bodyPanel.setBackground(new Color(226, 226, 226));
@@ -105,6 +122,12 @@ public class FrameAdminLogin extends JFrame {
 		JButton btn_Login = new JButton("Log In");
 		btn_Login.setFont(new Font("Tahoma", Font.PLAIN, 30));
 		loginPanel.add(btn_Login);
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

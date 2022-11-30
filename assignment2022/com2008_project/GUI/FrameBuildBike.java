@@ -10,6 +10,7 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
 import java.awt.BorderLayout;
 import javax.swing.JLabel;
 import javax.swing.JButton;
@@ -22,10 +23,12 @@ import java.awt.event.ItemListener;
 import java.awt.event.ActionEvent;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.Window;
+
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 
-public class FrameBuildBike extends JFrame implements ItemListener {
+public class FrameBuildBike extends JFrame implements ItemListener, ActionListener {
 
 	private JPanel contentPane;
 	private JTextField txtfield_BikeName;
@@ -49,6 +52,9 @@ public class FrameBuildBike extends JFrame implements ItemListener {
 		});
 	}
 	
+	//initialize
+	JButton btn_Return ;
+	
 	
 	
 	//Frame name
@@ -65,6 +71,7 @@ public class FrameBuildBike extends JFrame implements ItemListener {
 			SQL WheelsName = new SQL();
 			String[] Wheels = WheelsName.Wheel().toArray(new String[0]);
 			JComboBox WheelsBox;
+			protected Window frame;
 			
 	
 	/**
@@ -96,6 +103,10 @@ public class FrameBuildBike extends JFrame implements ItemListener {
 		btn_Return.setFont(new Font("Tahoma", Font.PLAIN, 30));
 		btn_Return.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				FrameHomeState mf = new FrameHomeState();
+				mf.setVisible(true);
+			    frame = null;
+				frame.dispose();
 			}
 		});
 		headerPanel.add(btn_Return, BorderLayout.EAST);
@@ -217,6 +228,12 @@ public class FrameBuildBike extends JFrame implements ItemListener {
 		String SelectWheels = (String) WheelsBox.getSelectedItem();
 		//temp
 		System.out.println("Wheels: " + SelectWheels);
+		
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
 		
 	}
 
