@@ -102,10 +102,49 @@ public class SQL {
 		return (ArrayList<String>) (WheelsName);
 
 
+		}}
+	
+/*	
+	//-----------Get Customer First Name-----------------
+		public ArrayList<String> CustomerName() {
+			
+			List<String> CustomerName=new ArrayList<>();
+				
+			try (Connection con = DriverManager.getConnection("jdbc:mysql://stusql.dcs.shef.ac.uk/team048","team048","8780772c")) {
+
+				Statement stmt = null;
+				try {
+				stmt = con.createStatement();
+				
+				ResultSet res = stmt.executeQuery(
+						"SELECT * from team048.Customers");
+						 while (res.next()) {      
+						   CustomerName.add(res.getString("CustomerName"));   
+						}			
+						 System.out.println(CustomerName);
 		}
 
-	
-}
+				finally {
+				if (stmt != null)
+				stmt.close();
+				}
+				
+			}
+				catch (Exception ex) {
+				ex.printStackTrace();
+				}
+			return (ArrayList<String>) (CustomerName);
+
+
+			}
+
+		
+	}
+
+
+*/
+
+
 
 
 
