@@ -99,10 +99,9 @@ public class FrameHomeState extends JFrame implements ActionListener {
 			private Window frame;
 
 			public void actionPerformed(ActionEvent e) {
-				FrameCustomerLogin cl = new FrameCustomerLogin();
+				FrameAdminLogin cl = new FrameAdminLogin();
 				cl.setVisible(true);
-				frame = null;
-				frame.dispose();
+				setVisible(false);
 			}
 		});
 		
@@ -124,8 +123,7 @@ public class FrameHomeState extends JFrame implements ActionListener {
 			public void actionPerformed(ActionEvent e) {
 				FrameBuildBike bb = new FrameBuildBike();
 				bb.setVisible(true);
-				Window frame = null;
-				frame.dispose();
+				setVisible(false);
 			}
 		});
 		btn_BuildBike.setFont(new Font("Tahoma", Font.PLAIN, 30));
@@ -138,8 +136,7 @@ public class FrameHomeState extends JFrame implements ActionListener {
 			public void actionPerformed(ActionEvent e) {
 				FrameCustomerLogin yo = new FrameCustomerLogin();
 				yo.setVisible(true);
-				Window frame = null;
-				frame.dispose();
+				setVisible(false);
 			}
 		});
 		
@@ -156,10 +153,6 @@ public class FrameHomeState extends JFrame implements ActionListener {
 		ST_CompanyDescription.setHorizontalAlignment(SwingConstants.CENTER);
 		ST_CompanyDescription.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		
-		JLabel SI_Bike = new JLabel("");
-		SI_Bike.setHorizontalAlignment(SwingConstants.CENTER);
-		SI_Bike.setIcon(new ImageIcon("C:\\Users\\User\\Downloads\\n1274244 (1).png"));
-		
 		JLabel ST_Tip = new JLabel("To build your bike, press on 'Build Your Bike', to view your order(s) press 'View Your Orders'.");
 		ST_Tip.setForeground(new Color(63, 63, 63));
 		ST_Tip.setFont(new Font("Tahoma", Font.PLAIN, 20));
@@ -168,7 +161,6 @@ public class FrameHomeState extends JFrame implements ActionListener {
 		ContentPanel.setLayout(fl_ContentPanel);
 		ContentPanel.add(ST_Title);
 		ContentPanel.add(ST_CompanyDescription);
-		ContentPanel.add(SI_Bike);
 		ContentPanel.add(ST_Tip);
 	}
 

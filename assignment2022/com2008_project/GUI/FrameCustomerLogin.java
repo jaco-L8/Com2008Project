@@ -1,7 +1,6 @@
 
 package com2008_project.GUI;
 
-
 import com2008_project.Database.*;
 import com2008_project.BusinessLogic.*;
 import java.awt.EventQueue;
@@ -9,6 +8,7 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
 import java.awt.Color;
 import java.awt.BorderLayout;
 import javax.swing.JLabel;
@@ -28,6 +28,13 @@ import java.awt.Window;
 import java.awt.CardLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 public class FrameCustomerLogin extends JFrame implements ActionListener {
 
@@ -83,14 +90,10 @@ JButton btn_Return ;
 		headerPanel.add(btn_Return, BorderLayout.EAST);
 		btn_Return.addActionListener(new ActionListener() {
 			
-
-			private Window frame;
-
 			public void actionPerformed(ActionEvent e) {
 				FrameHomeState mf = new FrameHomeState();
 				mf.setVisible(true);
-				frame = null;
-				frame.dispose();
+				setVisible(false);
 			}
 		});
 		
@@ -165,7 +168,65 @@ JButton btn_Return ;
 		
 		JButton btn_ViewOrders = new JButton("View Orders");
 		btn_ViewOrders.setFont(new Font("Tahoma", Font.PLAIN, 30));
-		viewOrdersLoginPanel.add(btn_ViewOrders);
+		viewOrdersLoginPanel.add(btn_ViewOrders);		
+		btn_ViewOrders.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String firstName = txtField_FirstName.getText();
+				String lastName = txtField_LastName.getText();
+				String postCode = txtField_PostCode.getText();
+				String houseNumber = txtField_HouseNumber.getText();
+				
+				final String DB_URL = "jdbc:mysql://stusql.dcs.shef.ac.uk/team048";
+				final String USER = "team048";
+				final String PASS = "8780772c";
+				try {
+					Connection conn = DriverManager.getConnection(DB_URL,USER,PASS);
+					Statement stmt = conn.createStatement();
+					System.out.println("Inserting records into the table...");
+					String sql = "SELECT * FROM team048.Customers WHERE CustomerName = '"+firstName+"' AND CustomerSurname = '"+lastName+"' AND "
+							+ "CustomerPostCode = '"+postCode+"' AND CustomerHouseNumber = '"+houseNumber+"'";
+					ResultSet rs = stmt.executeQuery(sql);
+					if(!(rs.next())) {
+						System.out.println("No User Found.");
+					}
+					else {
+						int CustomerID = rs.getInt("CustomerID");
+						System.out.println(CustomerID);
+						FrameYourOrders mf = new FrameYourOrders(CustomerID);
+						mf.setVisible(true);
+						setVisible(false);
+					}
+				}
+				catch (SQLException ea) {
+					ea.printStackTrace();
+				}
+				
+			}
+
+			/*private void JDBCExample(String firstName, String lastName, String postCode, String houseNumber) {
+				final String DB_URL = "jdbc:mysql://stusql.dcs.shef.ac.uk/team048";
+				final String USER = "team048";
+				final String PASS = "8780772c";
+				try {
+					Connection conn = DriverManager.getConnection(DB_URL,USER,PASS);
+					Statement stmt = conn.createStatement();
+				System.out.println("Inserting records into the table...");
+				Integer customerID = 1;
+				String sql = "INSERT INTO "+USER+".Customers (CustomerName,CustomerSurname,CustomerPostCode, CustomerHouseNumber) VALUES ('"+firstName+"', '"+lastName+"','"+postCode+"', '"+houseNumber+"')";
+				stmt.executeUpdate(sql);
+				System.out.println("Inserted records into the table...");   	  
+				}
+				catch (SQLException e) {
+					e.printStackTrace();
+				} 
+			}*/
+				
+		});
+		
+		
+		
 		
 		JPanel viewOrderLoginPanel = new JPanel();
 		viewOrderLoginPanel.setBorder(new EmptyBorder(100, 50, 100, 50));
@@ -193,11 +254,78 @@ JButton btn_Return ;
 		JButton btn_ViewOrder = new JButton("View Order");
 		btn_ViewOrder.setFont(new Font("Tahoma", Font.PLAIN, 30));
 		viewOrderLoginPanel.add(btn_ViewOrder);
+		btn_ViewOrder.addActionListener(new ActionListener() {
+			
+
+			public void actionPerformed(ActionEvent e) {
+				final String DB_URL = "jdbc:mysql://stusql.dcs.shef.ac.uk/team048";
+				final String USER = "team048";
+				final String PASS = "8780772c";
+				try {
+					System.out.println("Connecting...");
+					String BikeID = txtField_OrderID.getText();
+					Connection conn = DriverManager.getConnection(DB_URL,USER,PASS);
+					Statement Stmt = conn.createStatement();
+					
+					String sqlQuery = "SELECT * FROM team048.CustomerOrders WHERE BikeID = '"+BikeID+"'";
+					
+					ResultSet rs = Stmt.executeQuery(sqlQuery);
+					
+					if((rs.next())) {
+						System.out.println("Bike Found");
+						int OrderID = rs.getInt("OrderID");
+						System.out.println(OrderID);
+						int Confirmed = rs.getInt("Confirmed");
+						int Fulfilled = rs.getInt("Fullfilled");
+						if(Confirmed == 0 && Fulfilled == 0) {
+							FrameBuildBike mf = new FrameBuildBike();
+							mf.LoadBikeDetails(OrderID);
+							mf.setVisible(true);
+							setVisible(false);
+						}
+						else {
+							System.out.println("Order Paid For/Fulfilled");
+						}
+					}
+					else {
+						System.out.println("No Order Found");
+					}
+				}
+				catch (SQLException ea) {
+					ea.printStackTrace();
+				}
+			}
+		});
+		
+		
+		
 	}
+	
+	
+	
+	/*public class JDBCExample {
+		   static final String DB_URL = "jdbc:mysql://stusql.dcs.shef.ac.uk/team048";
+		   static final String USER = "team048";
+		   static final String PASS = "8780772c";
+
+		   public static void JDBCExample(String FirstName,String LastName, String PostCode, String HouseNumber) {
+		         System.out.println("Inserting records into the table...");          
+		         String sql = "INSERT INTO "+USER+".Customers (CustomerName,CustomerSurname,CustomerPostCode, CustomerHouseNumber) VALUES ('john', 'doe','s1s1s1', '123')";
+		         stmt.executeUpdate(sql);
+		         System.out.println("Inserted records into the table...");   	  
+		      } catch (SQLException e) {
+		         e.printStackTrace();
+		      } 
+		   }
+		} */
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		
+		
+		
 	}
+
 
 }

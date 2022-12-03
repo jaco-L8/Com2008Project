@@ -19,6 +19,13 @@ import java.awt.GridLayout;
 import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class FrameDatabaseManager extends JFrame implements ActionListener{
@@ -45,7 +52,6 @@ public class FrameDatabaseManager extends JFrame implements ActionListener{
 
 	//initialize
 	JButton btn_Return ;
-	private Window frame;
 
 	/**
 	 * Create the frame.
@@ -65,7 +71,7 @@ public class FrameDatabaseManager extends JFrame implements ActionListener{
 		contentPane.add(headerPanel, BorderLayout.NORTH);
 		headerPanel.setLayout(new BorderLayout(0, 0));
 		
-		JLabel ST_PageName = new JLabel("Database Manager");
+		JLabel ST_PageName = new JLabel("Fulfill Customer Orders");
 		ST_PageName.setHorizontalAlignment(SwingConstants.CENTER);
 		ST_PageName.setFont(new Font("Tahoma", Font.PLAIN, 60));
 		headerPanel.add(ST_PageName, BorderLayout.CENTER);
@@ -73,6 +79,14 @@ public class FrameDatabaseManager extends JFrame implements ActionListener{
 		JButton btn_Return = new JButton("Return");
 		btn_Return.setFont(new Font("Tahoma", Font.PLAIN, 30));
 		headerPanel.add(btn_Return, BorderLayout.EAST);
+		btn_Return.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				FrameAdminOptions mf = new FrameAdminOptions();
+				mf.setVisible(true);
+				setVisible(false);
+			}
+		});
+
 		
 
 		
@@ -80,10 +94,10 @@ public class FrameDatabaseManager extends JFrame implements ActionListener{
 		
 		
 		JPanel bodyPanel = new JPanel();
-		bodyPanel.setBorder(new EmptyBorder(10, 20, 10, 20));
+		bodyPanel.setBorder(new EmptyBorder(100, 300, 100, 300));
 		bodyPanel.setBackground(new Color(226, 226, 226));
 		contentPane.add(bodyPanel, BorderLayout.CENTER);
-		bodyPanel.setLayout(new BorderLayout(0, 0));
+		bodyPanel.setLayout(new GridLayout(0, 1, 0, 200));
 		
 		JPanel databasePanel = new JPanel();
 		databasePanel.setBorder(new EmptyBorder(10, 20, 10, 20));
@@ -99,19 +113,71 @@ public class FrameDatabaseManager extends JFrame implements ActionListener{
 		ST_SelectDatabase.setFont(new Font("Tahoma", Font.PLAIN, 25));
 		selectPanel.add(ST_SelectDatabase);
 		
-		JComboBox cb_SelectDatabase = new JComboBox();
-		selectPanel.add(cb_SelectDatabase);
+		List<String> CustomerOrders=new ArrayList<>();
+		try {
+			final String DB_URL = "jdbc:mysql://stusql.dcs.shef.ac.uk/team048";
+			final String USER = "team048";
+			final String PASS = "8780772c";
+			Connection conn = DriverManager.getConnection(DB_URL,USER,PASS);
+			Statement stmt = conn.createStatement();
+			
+			String sqlQuery = "SELECT * FROM team048.CustomerOrders WHERE Confirmed = '1' AND Fullfilled = '0'";
+			
+			ResultSet rs = stmt.executeQuery(sqlQuery);
+			while (rs.next()) {      
+				CustomerOrders.add(rs.getString("BikeID"));   
+			}
+			System.out.println(CustomerOrders);
+			
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
 		
-		table = new JTable();
-		databasePanel.add(table, BorderLayout.CENTER);
+		String[] OrdersArray = CustomerOrders.toArray(new String[0]);
+		
+		JComboBox cb_SelectOrder = new JComboBox(OrdersArray);
+		selectPanel.add(cb_SelectOrder);
+		
+		JButton btn_FulfillOrder = new JButton("Fulfill Selected Order");
+		btn_FulfillOrder.setFont(new Font("Tahoma", Font.PLAIN, 30));
+		bodyPanel.add(btn_FulfillOrder, BorderLayout.SOUTH);
+		
+		btn_FulfillOrder.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				final String DB_URL = "jdbc:mysql://stusql.dcs.shef.ac.uk/team048";
+				final String USER = "team048";
+				final String PASS = "8780772c";
+				try {
+					String BikeID = (String) cb_SelectOrder.getSelectedItem();
+					
+					Connection conn = DriverManager.getConnection(DB_URL,USER,PASS);
+					Statement stmt = conn.createStatement();
+					
+					String sqlQuery = "UPDATE team048.CustomerOrders SET Fullfilled = '1' WHERE BikeID = '"+BikeID+"'";
+					stmt.executeUpdate(sqlQuery);
+				}
+				catch (SQLException ea) {
+					ea.printStackTrace();
+				}
+				
+				
+				FrameAdminOptions mf = new FrameAdminOptions();
+				mf.setVisible(true);
+				setVisible(false);
+			}
+		});
+
+		
+		
+		
 		
 	}
 	
 	public void actionPerformed(ActionEvent e) {
 		FrameAdminOptions ao = new FrameAdminOptions();
 		ao.setVisible(true);
-		 frame = null;
-		frame.dispose();
+		setVisible(false);
 	}
 
 }

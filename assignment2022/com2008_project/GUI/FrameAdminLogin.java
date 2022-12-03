@@ -22,12 +22,17 @@ import java.awt.Window;
 import javax.swing.JTextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 public class FrameAdminLogin extends JFrame implements ActionListener{
 
 	private JPanel contentPane;
-	private JTextField txtField_Username;
-	private JTextField txtField_Password;
+	JTextField txtField_Username;
+	JTextField txtField_Password;
 
 	/**
 	 * Launch the application.
@@ -80,8 +85,7 @@ public class FrameAdminLogin extends JFrame implements ActionListener{
 			public void actionPerformed(ActionEvent e) {
 				FrameHomeState mf = new FrameHomeState();
 				mf.setVisible(true);
-			    frame = null;
-			    frame.dispose();
+				setVisible(false);
 			}
 		});
 		
@@ -122,11 +126,50 @@ public class FrameAdminLogin extends JFrame implements ActionListener{
 		JButton btn_Login = new JButton("Log In");
 		btn_Login.setFont(new Font("Tahoma", Font.PLAIN, 30));
 		loginPanel.add(btn_Login);
+		btn_Login.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {
+				final String DB_URL = "jdbc:mysql://stusql.dcs.shef.ac.uk/team048";
+				final String USER = "team048";
+				final String PASS = "8780772c";
+				try {
+					String userName = txtField_Username.getText();
+					String password = txtField_Password.getText();
+					Integer hashedpassword = password.hashCode();
+					password = hashedpassword.toString();
+					System.out.println(password);
+					Connection conn = DriverManager.getConnection(DB_URL,USER,PASS);
+					Statement stmt = conn.createStatement();
+					
+					String sqlQuery = "SELECT * FROM team048.Admin WHERE AdminName = '"+userName+"' AND AdminPass = '"+password+"'";
+					
+					ResultSet rs = stmt.executeQuery(sqlQuery);
+					if (!(rs.next())) {
+						System.out.println("No Login Details Found.");
+					}
+					else {
+						FrameAdminOptions mf = new FrameAdminOptions();
+						mf.setVisible(true);
+						setVisible(false);
+						
+
+					}
+				}
+				catch (SQLException ea) {
+					ea.printStackTrace();
+				}
+				
+			}
+		});
+		
+		
 	}
+		
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
+		
 		
 	}
 

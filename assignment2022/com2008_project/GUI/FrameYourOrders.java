@@ -13,19 +13,34 @@ import javax.swing.border.EmptyBorder;
 import java.awt.Color;
 import java.awt.BorderLayout;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
+
 import java.awt.SystemColor;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 import java.awt.GridLayout;
 import javax.swing.JTextField;
 import javax.swing.JTable;
 import java.awt.FlowLayout;
 
-public class FrameYourOrders extends JFrame {
+public class FrameYourOrders extends JFrame implements ActionListener, ItemListener {
 
 	private JPanel contentPane;
-	private JTable table_Orders;
+	private JComboBox OrdersBox;
 
 	/**
 	 * Launch the application.
@@ -34,7 +49,7 @@ public class FrameYourOrders extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					FrameYourOrders frame = new FrameYourOrders();
+					FrameYourOrders frame = new FrameYourOrders(1);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -46,7 +61,7 @@ public class FrameYourOrders extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public FrameYourOrders() {
+	public FrameYourOrders(int CustomerID) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1280, 720);
 		contentPane = new JPanel();
@@ -70,6 +85,16 @@ public class FrameYourOrders extends JFrame {
 		btn_Return.setFont(new Font("Tahoma", Font.PLAIN, 30));
 		headerPanel.add(btn_Return, BorderLayout.EAST);
 		
+		btn_Return.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				FrameCustomerLogin mf = new FrameCustomerLogin();
+				mf.setVisible(true);
+				setVisible(false);
+			}
+		});
+
+		
+		
 		JPanel bodyPanel = new JPanel();
 		bodyPanel.setBorder(new EmptyBorder(10, 20, 10, 20));
 		bodyPanel.setBackground(new Color(226, 226, 226));
@@ -77,17 +102,97 @@ public class FrameYourOrders extends JFrame {
 		bodyPanel.setLayout(new BorderLayout(0, 0));
 		
 		JPanel loginPanel = new JPanel();
-		loginPanel.setBorder(new EmptyBorder(10, 20, 10, 20));
+		loginPanel.setBorder(new EmptyBorder(150, 300, 150, 300));
 		loginPanel.setBackground(SystemColor.menu);
 		bodyPanel.add(loginPanel, BorderLayout.CENTER);
-		loginPanel.setLayout(new BorderLayout(0, 0));
+		loginPanel.setLayout(new GridLayout(0, 1, 0, 40));
 		
-		table_Orders = new JTable();
-		loginPanel.add(table_Orders, BorderLayout.CENTER);
-		
-		JLabel ST_YourOrders = new JLabel("Your Orders Table:");
+		JLabel ST_YourOrders = new JLabel("Select An Order To Edit:");
 		ST_YourOrders.setFont(new Font("Tahoma", Font.PLAIN, 30));
-		loginPanel.add(ST_YourOrders, BorderLayout.NORTH);
+		loginPanel.add(ST_YourOrders);
+		
+		List<String> CustomerOrders=new ArrayList<>();
+		try {
+			final String DB_URL = "jdbc:mysql://stusql.dcs.shef.ac.uk/team048";
+			final String USER = "team048";
+			final String PASS = "8780772c";
+			Connection conn = DriverManager.getConnection(DB_URL,USER,PASS);
+			Statement stmt = conn.createStatement();
+			
+			String sqlQuery = "SELECT * FROM team048.CustomerOrders WHERE CustomerID = '"+CustomerID+"'";
+			System.out.println(CustomerID);
+			
+			ResultSet rs = stmt.executeQuery(sqlQuery);
+			while (rs.next()) {      
+				CustomerOrders.add(rs.getString("BikeID"));   
+			}
+			System.out.println(CustomerOrders);
+			
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		String[] OrdersArray = CustomerOrders.toArray(new String[0]);
+		
+		OrdersBox = new JComboBox(OrdersArray);
+		OrdersBox.addItemListener(this);
+		loginPanel.add(OrdersBox);
+		
+		JButton btn_LoadOrder = new JButton("Load Selected Order");
+		btn_LoadOrder.setFont(new Font("Tahoma", Font.PLAIN, 30));
+		loginPanel.add(btn_LoadOrder);
+		btn_LoadOrder.addActionListener(new ActionListener() {
+			
+		public void actionPerformed(ActionEvent e) {
+			final String DB_URL = "jdbc:mysql://stusql.dcs.shef.ac.uk/team048";
+			final String USER = "team048";
+			final String PASS = "8780772c";
+			try {
+				Connection conn = DriverManager.getConnection(DB_URL,USER,PASS);
+				Statement stmt = conn.createStatement();
+				
+				String BikeID = (String) OrdersBox.getSelectedItem();
+				String sqlQuery = "SELECT * FROM team048.CustomerOrders WHERE BikeID = '"+BikeID+"'";
+				
+				ResultSet rs = stmt.executeQuery(sqlQuery);
+				if (!(rs.next())) {
+					System.out.println("Somehow nothing selected???.");
+				}
+				else {
+					Integer Confirmed = rs.getInt("Confirmed");
+					if(Confirmed == 1) {
+						String popupText = "This Order Has Been Paid For So is No Longer Editable.";
+						JOptionPane.showMessageDialog(null, popupText);
+					}
+					else {
+						int SelectedOrderID = rs.getInt("OrderID");
+						FrameBuildBike mf = new FrameBuildBike();
+						mf.LoadBikeDetails(SelectedOrderID);
+						mf.setVisible(true);
+						setVisible(false);
+					}
+				}
+			}
+			catch (SQLException ea) {
+				ea.printStackTrace();
+			}
+				
+		}
+		
+	});
+}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 
+	@Override
+	public void itemStateChanged(ItemEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	
 }
